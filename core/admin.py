@@ -4,6 +4,23 @@ from unfold.contrib.forms.widgets import WysiwygWidget
 from .models import *
 from django.contrib.auth.models import Group
 
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
+
+class CustomUserAdmin(BaseUserAdmin):
+    class Media:
+        css = {
+            'all': ('/static/custom_admin.css',) 
+        }
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        return form
+
+# Register the custom UserAdmin
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
+
 # Unregister the default Group model
 admin.site.unregister(Group)
 
@@ -74,7 +91,7 @@ from django import forms
 class AssignmentForm(forms.ModelForm):
     class Meta:
         model = Assignment
-        fields = ['sub_area', 'service_type', 'sub_service', 'practice_area', 'title', 'photo', 'description', 'company_logo']  # Include all fields
+        fields = ['service_type', 'sub_service', 'practice_area', 'title', 'photo', 'description', 'company_logo']  # Include all fields
 
 @admin.register(Assignment)
 class AssignmentAdmin(ModelAdmin):
@@ -121,10 +138,30 @@ class TeamMemberAdmin(ModelAdmin):
     search_fields = ('name', 'category')
     formfield_overrides = {models.TextField: {'widget': WysiwygWidget()}}
 
+class MilestoneWorkForm(forms.ModelForm):
+    class Meta:
+        model = MilestoneWork
+        fields = ['service_type', 'sub_service', 'practice_area', 'title', 'photo', 'description', 'company_logo']  # Include all fields
+
 @admin.register(MilestoneWork)
 class MilestoneWorkAdmin(ModelAdmin):
-    list_display = ('practice_area',)
-    search_fields = ('practice_area__name',)
+    form = MilestoneWorkForm
+
+    class Media:
+        js = ('assignment.js',)  # Include your custom JavaScript file
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        return form
+
+    def save_model(self, request, obj, form, change):
+        if not change:  
+            if MilestoneWork.objects.count() >= 20:
+                raise forms.ValidationError("You can only add a maximum of 20 records.")
+        super().save_model(request, obj, form, change)
+
+    list_display = ('title', 'service_type', 'sub_service', 'practice_area')
+    search_fields = ('title', 'practice_area')
     formfield_overrides = {models.TextField: {'widget': WysiwygWidget()}}
 
 @admin.register(WorkLocation)

@@ -1,20 +1,21 @@
 // static/admin/js/assignment.js
 
 document.addEventListener('DOMContentLoaded', function() {
-    const subAreaField = document.getElementById('id_sub_area');
+    // const subAreaField = document.getElementById('id_sub_area');
     const serviceTypeField = document.getElementById('id_service_type');
     const subServiceField = document.getElementById('id_sub_service');
-    const practiceAreaField = document.getElementById('id_practice_area');
 
     function toggleFields() {
-        const selectedSubArea = subAreaField.options[subAreaField.selectedIndex].text;
+        // const selectedSubArea = subAreaField.options[subAreaField.selectedIndex].text;
+        const selectedserviceType = serviceTypeField.options[serviceTypeField.selectedIndex].text;
 
         // Clear existing options in serviceTypeField
-        serviceTypeField.innerHTML = '';
+        subServiceField.innerHTML = '';
 
-        if (selectedSubArea.endsWith('OD')) {
+        if (selectedserviceType.includes('Organization Development')) {
             // Show OD related options
             const odOptions = [
+                { value: "", text: "Choose Option" },
                 { value: 'Organizational Capacity Assesment', text: 'Organizational Capacity Assesment' },
                 { value: 'Change Management', text: 'Change Management' },
                 { value: 'Training & Facilitation', text: 'Training & Facilitation' },
@@ -25,13 +26,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const newOption = document.createElement('option');
                 newOption.value = option.value;
                 newOption.text = option.text;
-                serviceTypeField.add(newOption);
+                subServiceField.add(newOption);
             });
-            subServiceField.style.display = 'block'; 
-            practiceAreaField.style.display = 'block'; 
-        } else if (selectedSubArea.endsWith('RE')) {
+            // subServiceField.style.display = 'block'; 
+        } else if (selectedserviceType.includes('Research & Evaluation')) {
             // Show RE related options
             const reOptions = [
+                { value: "", text: "Choose Option" },
                 { value: 'Baseline & Program Evaluation', text: 'Baseline & Program Evaluation' },
                 { value: 'Project Program Evaluation', text: 'Project Program Evaluation' },
                 { value: 'Market Survey', text: 'Market Survey' },
@@ -44,18 +45,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 const newOption = document.createElement('option');
                 newOption.value = option.value;
                 newOption.text = option.text;
-                serviceTypeField.add(newOption);
+                subServiceField.add(newOption);
             });
-            subServiceField.style.display = 'block'; 
-            practiceAreaField.style.display = 'block'; 
+            // subServiceField.style.display = 'block'; 
         } else {
             const defaultOption = document.createElement('option');
             defaultOption.value = '';
             defaultOption.text = 'Choose Option';
             defaultOption.selected = true; // Make it selected
-            serviceTypeField.add(defaultOption);
-            subServiceField.style.display = 'block'; 
-            practiceAreaField.style.display = 'block'; 
+            subServiceField.add(defaultOption);
+            // subServiceField.style.display = 'block'; 
         }
     }
 
@@ -63,5 +62,5 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleFields();
 
     // Add event listener to sub_area field
-    subAreaField.addEventListener('change', toggleFields);
+    serviceTypeField.addEventListener('change', toggleFields);
 });

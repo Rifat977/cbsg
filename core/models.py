@@ -52,6 +52,9 @@ class CoreCompetency(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=100)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         verbose_name_plural = '             Core Competencies'
 
@@ -118,6 +121,13 @@ class SubArea(models.Model):
         verbose_name_plural = '         Sub Areas'
 
 class Assignment(models.Model):
+    
+    TYPE_CHOICES = [
+        ('', 'Select Type'),
+        ('OD', 'Organization Development'),
+        ('RE', 'Research & Evaluation')
+    ]
+
     SERVICE_TYPE_CHOICES = [
         ( 'Organizational Capacity Assesment', 'Organizational Capacity Assesment' ),
         ( 'Change Management', 'Change Management' ),
@@ -133,10 +143,9 @@ class Assignment(models.Model):
         ( 'Preception Studies', 'Preception Studies' ),
     ]
     
-    sub_area = models.ForeignKey(SubArea, on_delete=models.CASCADE, related_name='assignments')
-    service_type = models.CharField(max_length=255, choices=SERVICE_TYPE_CHOICES)
-    sub_service = models.CharField(max_length=255)
-    practice_area = models.CharField(max_length=255)
+    service_type = models.CharField(max_length=2, choices=TYPE_CHOICES)
+    sub_service = models.CharField(max_length=255, choices=SERVICE_TYPE_CHOICES)
+    practice_area = models.ForeignKey('PracticeArea', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='assignment_photos/')
     description = models.TextField(max_length=300)
@@ -167,6 +176,9 @@ class PracticeArea(models.Model):
     image = models.ImageField(upload_to='practice_areas/', blank=True, null=True)
     logo = models.ImageField(upload_to='practice_areas/', blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = '      Practice Areas'
 
@@ -179,6 +191,7 @@ class TeamMember(models.Model):
     ]
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     name = models.CharField(max_length=255)
+    designation = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(max_length=100)
     photo = models.ImageField(upload_to='team_members/')
 
@@ -187,12 +200,40 @@ class TeamMember(models.Model):
 
 # Our Work & Reach Section
 class MilestoneWork(models.Model):
-    practice_area = models.ForeignKey(PracticeArea, on_delete=models.CASCADE)
-    description = models.TextField(max_length=100)
-    image = models.ImageField(upload_to='milestones/')
+    TYPE_CHOICES = [
+        ('', 'Select Type'),
+        ('OD', 'Organization Development'),
+        ('RE', 'Research & Evaluation')
+    ]
 
-    class meta:
-        verbose_name_plural = '    Milestone Works'
+    SERVICE_TYPE_CHOICES = [
+        ( 'Organizational Capacity Assesment', 'Organizational Capacity Assesment' ),
+        ( 'Change Management', 'Change Management' ),
+        ( 'Training & Facilitation', 'Training & Facilitation' ),
+        ( 'Project Cycle Management', 'Project Cycle Management' ),
+        ( 'ICT/MIS Development', 'ICT/MIS Development' ),
+        ( 'Baseline & Program Evaluation', 'Baseline & Program Evaluation' ),
+        ( 'Project Program Evaluation', 'Project Program Evaluation' ),
+        ( 'Market Survey', 'Market Survey' ),
+        ( 'Thematic Research', 'Thematic Research' ),
+        ( 'Impact Assesment', 'Impact Assesment' ),
+        ( 'Performance Studies', 'Performance Studies' ),
+        ( 'Preception Studies', 'Preception Studies' ),
+    ]
+    
+    service_type = models.CharField(max_length=2, choices=TYPE_CHOICES)
+    sub_service = models.CharField(max_length=255, choices=SERVICE_TYPE_CHOICES)
+    practice_area = models.ForeignKey('PracticeArea', on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    photo = models.ImageField(upload_to='assignment_photos/')
+    description = models.TextField(max_length=300)
+    company_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name_plural = '        Milestones'
 
 class WorkLocation(models.Model):
     SUBCONTINENT_CHOICES = [

@@ -1,0 +1,20 @@
+input, select, textarea {
+    background-color: #1f2937; /* Dark background */
+    border: 1px solid #374151; /* Border color */
+    color: #ffffff; /* Text color */
+    padding: 5px; /* Padding for better spacing */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #60a5fa; /* Lighter border on focus */
+    box-shadow: 0 0 5px rgba(96, 165, 250, 0.5); /* Shadow effect on focus */
+    outline: none; /* Remove default outline */
+}
+
+input::placeholder, select::placeholder, textarea::placeholder {
+    color: #9ca3af; /* Placeholder text color */
+    opacity: 1; /* Ensure full opacity */
+}
