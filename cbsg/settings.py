@@ -206,7 +206,7 @@ UNFOLD = {
                     {
                         "title": _("About"),
                         # "icon": "people",
-                        "link": "/admin/core/homebanner",
+                        "link": "/admin/core/about",
                     },
                     {
                         "title": _("Year Range"),
