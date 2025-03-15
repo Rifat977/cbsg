@@ -161,5 +161,186 @@ UNFOLD = {
     "SCRIPTS": [
         lambda request: static("js/script.js"),
     ],
-    "BORDER_RADIUS": "6px"
+    "BORDER_RADIUS": "6px",
+    "SIDEBAR": {
+        "show_search": False,  # Search in applications and models names
+        "show_all_applications": False,  # Dropdown with all applications and models
+        "navigation": [
+            {
+                "title": _("Home"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Company Profile"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/companyprofile",
+                    },
+                    {
+                        "title": _("Home Banner"),
+                        # "icon": "image",
+                        "link": "/admin/core/homebanner",
+                    },
+                    {
+                        "title": _("Recent Project"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/recentproject",
+                    },
+                    {
+                        "title": _("Testimonial"),
+                        # "icon": "",
+                        "link": "/admin/core/testimonial",
+                    },
+                ],
+            },
+            {
+                "title": _("About Us"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Core Competency"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/corecompetency",
+                    },
+                    {
+                        "title": _("About"),
+                        # "icon": "people",
+                        "link": "/admin/core/homebanner",
+                    },
+                    {
+                        "title": _("Year Range"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/yearrange",
+                    },
+                    {
+                        "title": _("History & Timeline"),
+                        # "icon": "people",
+                        "link": "/admin/core/historytimeline",
+                    },
+                    {
+                        "title": _("Strategic Partners"),
+                        # "icon": "people",
+                        "link": "/admin/core/strategicpartner",
+                    },
+                ],
+            },
+            {
+                "title": _("Our Service"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Service Intro"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/serviceintro",
+                    },
+                    {
+                        "title": _("Sub Service Area"),
+                        # "icon": "people",
+                        "link": "/admin/core/subservicearea",
+                    },
+                    {
+                        "title": _("Assignment"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/assignment",
+                    },
+                ],
+            },
+            {
+                "title": _("Practice Area"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Practice Area"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/practicearea",
+                    },
+                ],
+            },
+            {
+                "title": _("Our Team"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Team Member"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/teammember",
+                    },
+                ],
+            },
+            {
+                "title": _("Our Work & Reach"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Milestone Work"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/milestonework",
+                    },
+                    {
+                        "title": _("Work Location"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/worklocation",
+                    },
+                ],
+            },
+            {
+                "title": _("Photo Gallery"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Photo Gallery"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/photogallery",
+                    },
+                ],
+            },
+            {
+                "title": _("Contact"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Contact Details"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/contactdetail",
+                    },
+                ],
+            },
+            {
+                "title": _("Report & Request"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Report"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/report",
+                    },
+                    {
+                        "title": _("Request Form"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/requestform",
+                    },
+                ],
+            },
+            {
+                "title": _("Blog"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Blog Manage"),
+                        # "icon": "dashboard",  
+                        "link": "/admin/core/blogpost",
+                    },
+                ],
+            },
+        ],
+    },
 }

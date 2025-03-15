@@ -8,10 +8,10 @@ class CompanyProfile(models.Model):
     research_evaluation_assignments = models.IntegerField()
     years_of_experience = models.IntegerField()
     about_text = models.TextField(max_length=200)
-    od_text = models.TextField(max_length=300)
-    od_image = models.ImageField(upload_to='company_profile/')
-    re_text = models.TextField()
-    re_image = models.ImageField(upload_to='company_profile/')
+    organization_development_text = models.TextField(max_length=300)
+    organization_development_image = models.ImageField(upload_to='company_profile/')
+    research_evaluation_text = models.TextField()
+    research_evaluation_image = models.ImageField(upload_to='company_profile/')
     practice_caption = models.TextField()
 
     class Meta:
@@ -40,6 +40,7 @@ class Testimonial(models.Model):
     statement = models.TextField(max_length=150)
     name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
+    photo = models.ImageField(upload_to="testimonial_photo", null=True, blank=True)
     organization = models.CharField(max_length=255)
     contact_phone = models.CharField(max_length=20)
     contact_email = models.EmailField()
@@ -60,7 +61,7 @@ class CoreCompetency(models.Model):
 
 class About(models.Model):
     about_text = models.TextField(max_length=200)
-    our_mission_text = models.TextField(max_length=200)
+    our_mission = models.TextField(max_length=200)
     vision_text = models.TextField(max_length=200)
     integrity_text = models.TextField(max_length=80)
     commitment_text = models.TextField(max_length=80)
@@ -76,6 +77,7 @@ class About(models.Model):
 
 class YearRange(models.Model):
     year_range = models.CharField(max_length=50, unique=True)
+    description = models.TextField()
 
     def __str__(self):
         return self.year_range
@@ -96,7 +98,7 @@ class HistoryTimeline(models.Model):
         verbose_name_plural = '           History Timelines'
 
 class StrategicPartner(models.Model):
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     logo = models.ImageField(upload_to='partners/')
     company_name = models.CharField(max_length=255)
     company_website_link = models.URLField(blank=True, null=True)
@@ -104,7 +106,7 @@ class StrategicPartner(models.Model):
     class Meta:
         verbose_name_plural = '          Strategic Partners'
 
-class SubArea(models.Model):
+class SubServiceArea(models.Model):
     TYPE_CHOICES = [
         ('OD', 'Organization Development'),
         ('RE', 'Research & Evaluation')
@@ -128,23 +130,24 @@ class Assignment(models.Model):
         ('RE', 'Research & Evaluation')
     ]
 
-    SERVICE_TYPE_CHOICES = [
-        ( 'Organizational Capacity Assesment', 'Organizational Capacity Assesment' ),
-        ( 'Change Management', 'Change Management' ),
-        ( 'Training & Facilitation', 'Training & Facilitation' ),
-        ( 'Project Cycle Management', 'Project Cycle Management' ),
-        ( 'ICT/MIS Development', 'ICT/MIS Development' ),
-        ( 'Baseline & Program Evaluation', 'Baseline & Program Evaluation' ),
-        ( 'Project Program Evaluation', 'Project Program Evaluation' ),
-        ( 'Market Survey', 'Market Survey' ),
-        ( 'Thematic Research', 'Thematic Research' ),
-        ( 'Impact Assesment', 'Impact Assesment' ),
-        ( 'Performance Studies', 'Performance Studies' ),
-        ( 'Preception Studies', 'Preception Studies' ),
-    ]
+    # SERVICE_TYPE_CHOICES = [
+    #     ( 'Organizational Capacity Assesment', 'Organizational Capacity Assesment' ),
+    #     ( 'Change Management', 'Change Management' ),
+    #     ( 'Training & Facilitation', 'Training & Facilitation' ),
+    #     ( 'Project Cycle Management', 'Project Cycle Management' ),
+    #     ( 'ICT/MIS Development', 'ICT/MIS Development' ),
+    #     ( 'Baseline & Program Evaluation', 'Baseline & Program Evaluation' ),
+    #     ( 'Project Program Evaluation', 'Project Program Evaluation' ),
+    #     ( 'Market Survey', 'Market Survey' ),
+    #     ( 'Thematic Research', 'Thematic Research' ),
+    #     ( 'Impact Assesment', 'Impact Assesment' ),
+    #     ( 'Performance Studies', 'Performance Studies' ),
+    #     ( 'Preception Studies', 'Preception Studies' ),
+    # ]
     
     service_type = models.CharField(max_length=2, choices=TYPE_CHOICES)
-    sub_service = models.CharField(max_length=255, choices=SERVICE_TYPE_CHOICES)
+    # sub_service = models.CharField(max_length=255, choices=SERVICE_TYPE_CHOICES)
+    sub_service_area = models.ForeignKey(SubServiceArea, on_delete=models.CASCADE)
     practice_area = models.ForeignKey('PracticeArea', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='assignment_photos/')
@@ -164,7 +167,7 @@ class ServiceIntro(models.Model):
     organization_development_image = models.ImageField(upload_to='services/', blank=True, null=True)
     research_evaluation = models.TextField(max_length=100)
     research_evaluation_image = models.ImageField(upload_to='services/', blank=True, null=True)
-    sub_areas = models.ManyToManyField(SubArea)
+    sub_areas = models.ManyToManyField(SubServiceArea)
 
     class Meta:
         verbose_name_plural = '       Service Intros'
@@ -206,28 +209,17 @@ class MilestoneWork(models.Model):
         ('RE', 'Research & Evaluation')
     ]
 
-    SERVICE_TYPE_CHOICES = [
-        ( 'Organizational Capacity Assesment', 'Organizational Capacity Assesment' ),
-        ( 'Change Management', 'Change Management' ),
-        ( 'Training & Facilitation', 'Training & Facilitation' ),
-        ( 'Project Cycle Management', 'Project Cycle Management' ),
-        ( 'ICT/MIS Development', 'ICT/MIS Development' ),
-        ( 'Baseline & Program Evaluation', 'Baseline & Program Evaluation' ),
-        ( 'Project Program Evaluation', 'Project Program Evaluation' ),
-        ( 'Market Survey', 'Market Survey' ),
-        ( 'Thematic Research', 'Thematic Research' ),
-        ( 'Impact Assesment', 'Impact Assesment' ),
-        ( 'Performance Studies', 'Performance Studies' ),
-        ( 'Preception Studies', 'Preception Studies' ),
-    ]
-    
     service_type = models.CharField(max_length=2, choices=TYPE_CHOICES)
-    sub_service = models.CharField(max_length=255, choices=SERVICE_TYPE_CHOICES)
+    # sub_service = models.CharField(max_length=255, choices=SERVICE_TYPE_CHOICES)
+    sub_service_area = models.ForeignKey(SubServiceArea, on_delete=models.CASCADE)
     practice_area = models.ForeignKey('PracticeArea', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='assignment_photos/')
     description = models.TextField(max_length=300)
     company_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
     def __str__(self):
         return self.title
@@ -248,12 +240,32 @@ class WorkLocation(models.Model):
     class Meta:
         verbose_name_plural = '   Work Locations'
 
+class Report(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    report_pdf = models.FileField(upload_to='reports/')
+
+    class Meta:
+        verbose_name_plural = 'Reports'
+
+class BlogPost(models.Model):
+    post_id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    category = models.CharField(max_length=100)
+    publication_date = models.DateTimeField()
+    tags = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name_plural = 'Blog Posts'
+
 # Request Form
 class RequestForm(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
     description = models.TextField()
+    report = models.ForeignKey(Report, on_delete=models.CASCADE, related_name='request_forms', null=True, blank=True)
 
     class Meta:
         verbose_name_plural = '  Request Forms'

@@ -63,6 +63,7 @@ class AboutAdmin(ModelAdmin):
 class YearRangeAdmin(ModelAdmin):
     list_display = ('year_range',)
     search_fields = ('year_range',)
+    formfield_overrides = {models.TextField: {'widget': WysiwygWidget()}}
 
 @admin.register(HistoryTimeline)
 class HistoryTimelineAdmin(ModelAdmin):
@@ -75,8 +76,8 @@ class StrategicPartnerAdmin(ModelAdmin):
     list_display = ('company_name', 'company_website_link')
     search_fields = ('company_name',)
 
-@admin.register(SubArea)
-class SubAreaAdmin(ModelAdmin):
+@admin.register(SubServiceArea)
+class SubServiceAreaAdmin(ModelAdmin):
     list_display = ('name', 'category')
     search_fields = ('name',)
     formfield_overrides = {models.TextField: {'widget': WysiwygWidget()}}
@@ -91,7 +92,7 @@ from django import forms
 class AssignmentForm(forms.ModelForm):
     class Meta:
         model = Assignment
-        fields = ['service_type', 'sub_service', 'practice_area', 'title', 'photo', 'description', 'company_logo']  # Include all fields
+        fields = ['service_type', 'sub_service_area', 'practice_area', 'title', 'photo', 'description', 'company_logo']  # Include all fields
 
 @admin.register(Assignment)
 class AssignmentAdmin(ModelAdmin):
@@ -107,7 +108,7 @@ class AssignmentAdmin(ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
-    list_display = ('title', 'service_type', 'sub_service', 'practice_area')
+    list_display = ('title', 'service_type', 'sub_service_area', 'practice_area')
     search_fields = ('title', 'practice_area')
     formfield_overrides = {models.TextField: {'widget': WysiwygWidget()}}
 
@@ -141,7 +142,7 @@ class TeamMemberAdmin(ModelAdmin):
 class MilestoneWorkForm(forms.ModelForm):
     class Meta:
         model = MilestoneWork
-        fields = ['service_type', 'sub_service', 'practice_area', 'title', 'photo', 'description', 'company_logo']  # Include all fields
+        fields = ['service_type', 'sub_service_area', 'practice_area', 'title', 'photo', 'description', 'company_logo']  # Include all fields
 
 @admin.register(MilestoneWork)
 class MilestoneWorkAdmin(ModelAdmin):
@@ -160,7 +161,7 @@ class MilestoneWorkAdmin(ModelAdmin):
                 raise forms.ValidationError("You can only add a maximum of 20 records.")
         super().save_model(request, obj, form, change)
 
-    list_display = ('title', 'service_type', 'sub_service', 'practice_area')
+    list_display = ('title', 'service_type', 'sub_service_area', 'practice_area')
     search_fields = ('title', 'practice_area')
     formfield_overrides = {models.TextField: {'widget': WysiwygWidget()}}
 
@@ -185,3 +186,19 @@ class PhotoGalleryAdmin(ModelAdmin):
 class ContactDetailAdmin(ModelAdmin):
     list_display = ('name', 'organization', 'email', 'cell')
     search_fields = ('name', 'organization', 'email')
+
+
+@admin.register(Report)
+class ReportAdmin(ModelAdmin):
+    list_display = ('title', 'description', 'report_pdf')
+    search_fields = ('title', 'description')
+    list_filter = ('title',)
+    formfield_overrides = {models.TextField: {'widget': WysiwygWidget()}}
+
+@admin.register(BlogPost)
+class BlogPostAdmin(ModelAdmin):
+    list_display = ('post_id', 'title', 'category', 'publication_date')
+    search_fields = ('title', 'content', 'category', 'tags')
+    list_filter = ('category', 'publication_date')
+    ordering = ('-publication_date',)
+    formfield_overrides = {models.TextField: {'widget': WysiwygWidget()}}

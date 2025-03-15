@@ -3,58 +3,72 @@
 document.addEventListener('DOMContentLoaded', function() {
     // const subAreaField = document.getElementById('id_sub_area');
     const serviceTypeField = document.getElementById('id_service_type');
-    const subServiceField = document.getElementById('id_sub_service');
+    const subServiceField = document.getElementById('id_sub_service_area');
+
+    const originalOptions = Array.from(subServiceField.options).map(option => ({
+        value: option.value,
+        text: option.text
+    }));
+
+    // Classify options into storedOdOptions and storedReOptions
+    const storedOdOptions = originalOptions.filter(option => option.text.endsWith('OD'));
+    const storedReOptions = originalOptions.filter(option => option.text.endsWith('RE'));
+
 
     function toggleFields() {
+
+        
         // const selectedSubArea = subAreaField.options[subAreaField.selectedIndex].text;
         const selectedserviceType = serviceTypeField.options[serviceTypeField.selectedIndex].text;
 
-        // Clear existing options in serviceTypeField
+
+        // Clear existing options
         subServiceField.innerHTML = '';
 
+
         if (selectedserviceType.includes('Organization Development')) {
-            // Show OD related options
-            const odOptions = [
-                { value: "", text: "Choose Option" },
-                { value: 'Organizational Capacity Assesment', text: 'Organizational Capacity Assesment' },
-                { value: 'Change Management', text: 'Change Management' },
-                { value: 'Training & Facilitation', text: 'Training & Facilitation' },
-                { value: 'Project Cycle Management', text: 'Project Cycle Management' },
-                { value: 'ICT/MIS Development', text: 'ICT/MIS Development' }
-            ];
-            odOptions.forEach(option => {
-                const newOption = document.createElement('option');
-                newOption.value = option.value;
-                newOption.text = option.text;
-                subServiceField.add(newOption);
+            
+            // Add only options that do not end with 'RE' and avoid duplicates
+            originalOptions.forEach(option => {
+                if (!option.text.endsWith('RE') && !Array.from(subServiceField.options).some(existingOption => existingOption.value === option.value)) {
+                    const newOption = document.createElement('option');
+                    newOption.value = option.value;
+                    newOption.text = option.text;
+                    subServiceField.add(newOption);
+                }
             });
-            // subServiceField.style.display = 'block'; 
+
+            storedOdOptions.forEach(option => {
+                // Avoid adding duplicates from storedOdOptions
+                if (!Array.from(subServiceField.options).some(existingOption => existingOption.value === option.value)) {
+                    const newOption = document.createElement('option');
+                    newOption.value = option.value;
+                    newOption.text = option.text;
+                    subServiceField.add(newOption);
+                }
+            });
+
+
         } else if (selectedserviceType.includes('Research & Evaluation')) {
-            // Show RE related options
-            const reOptions = [
-                { value: "", text: "Choose Option" },
-                { value: 'Baseline & Program Evaluation', text: 'Baseline & Program Evaluation' },
-                { value: 'Project Program Evaluation', text: 'Project Program Evaluation' },
-                { value: 'Market Survey', text: 'Market Survey' },
-                { value: 'Thematic Research', text: 'Thematic Research' },
-                { value: 'Impact Assesment', text: 'Impact Assesment' },
-                { value: 'Performance Studies', text: 'Performance Studies' },
-                { value: 'Preception Studies', text: 'Preception Studies' },
-            ];
-            reOptions.forEach(option => {
-                const newOption = document.createElement('option');
-                newOption.value = option.value;
-                newOption.text = option.text;
-                subServiceField.add(newOption);
+            // Add only options that do not end with 'OD' and avoid duplicates
+            originalOptions.forEach(option => {
+                if (!option.text.endsWith('OD') && !Array.from(subServiceField.options).some(existingOption => existingOption.value === option.value)) {
+                    const newOption = document.createElement('option');
+                    newOption.value = option.value;
+                    newOption.text = option.text;
+                    subServiceField.add(newOption);
+                }
             });
-            // subServiceField.style.display = 'block'; 
-        } else {
-            const defaultOption = document.createElement('option');
-            defaultOption.value = '';
-            defaultOption.text = 'Choose Option';
-            defaultOption.selected = true; // Make it selected
-            subServiceField.add(defaultOption);
-            // subServiceField.style.display = 'block'; 
+
+            storedReOptions.forEach(option => {
+                // Avoid adding duplicates from storedReOptions
+                if (!Array.from(subServiceField.options).some(existingOption => existingOption.value === option.value)) {
+                    const newOption = document.createElement('option');
+                    newOption.value = option.value;
+                    newOption.text = option.text;
+                    subServiceField.add(newOption);
+                }
+            });
         }
     }
 
