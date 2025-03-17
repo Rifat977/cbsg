@@ -7,8 +7,8 @@ class CompanyProfile(models.Model):
     organizational_capacity_assessment = models.IntegerField()
     research_evaluation_assignments = models.IntegerField()
     years_of_experience = models.IntegerField()
-    about_text = models.TextField(max_length=200)
-    organization_development_text = models.TextField(max_length=300)
+    about_text = models.TextField()
+    organization_development_text = models.TextField()
     organization_development_image = models.ImageField(upload_to='company_profile/')
     research_evaluation_text = models.TextField()
     research_evaluation_image = models.ImageField(upload_to='company_profile/')
@@ -29,7 +29,7 @@ class RecentProject(models.Model):
     assignment_start = models.DateField()
     assignment_end = models.DateField()
     assignment_with = models.CharField(max_length=255)
-    assignment_description = models.TextField(max_length=200)
+    assignment_description = models.TextField()
     assignment_photo = models.ImageField(upload_to='projects/', blank=True, null=True)
     company_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
 
@@ -37,7 +37,7 @@ class RecentProject(models.Model):
         verbose_name_plural = '               Recent Projects'
 
 class Testimonial(models.Model):
-    statement = models.TextField(max_length=150)
+    statement = models.TextField()
     name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
     photo = models.ImageField(upload_to="testimonial_photo", null=True, blank=True)
@@ -51,7 +51,7 @@ class Testimonial(models.Model):
 # About Us Section
 class CoreCompetency(models.Model):
     title = models.CharField(max_length=255)
-    description = models.TextField(max_length=100)
+    description = models.TextField()
 
     def __str__(self):
         return self.title
@@ -60,13 +60,13 @@ class CoreCompetency(models.Model):
         verbose_name_plural = '             Core Competencies'
 
 class About(models.Model):
-    about_text = models.TextField(max_length=200)
-    our_mission = models.TextField(max_length=200)
-    vision_text = models.TextField(max_length=200)
-    integrity_text = models.TextField(max_length=80)
-    commitment_text = models.TextField(max_length=80)
-    ethical_text = models.TextField(max_length=80)
-    inclusivity_text = models.TextField(max_length=80)
+    about_text = models.TextField()
+    our_mission = models.TextField()
+    vision_text = models.TextField()
+    integrity_text = models.TextField()
+    commitment_text = models.TextField()
+    ethical_text = models.TextField()
+    inclusivity_text = models.TextField()
     core_competencies = models.ManyToManyField(CoreCompetency)
     company_profile = models.FileField(upload_to='company_profile_pdfs/')
     logo = models.ImageField(upload_to='logos/')
@@ -88,7 +88,7 @@ class YearRange(models.Model):
 class HistoryTimeline(models.Model):
     year_range = models.ForeignKey(YearRange, on_delete=models.CASCADE, related_name='timelines')
     title = models.CharField(max_length=50)
-    description = models.TextField(max_length=100)
+    description = models.TextField()
     image = models.ImageField(upload_to='history_timeline/')
 
     def __str__(self):
@@ -113,7 +113,7 @@ class SubServiceArea(models.Model):
     ]
     name = models.CharField(max_length=255, unique=True)
     category = models.CharField(max_length=2, choices=TYPE_CHOICES)
-    description = models.TextField(max_length=200)
+    description = models.TextField()
     images = models.ImageField(upload_to='subarea_images/', blank=True, null=True)
 
     def __str__(self):
@@ -151,7 +151,7 @@ class Assignment(models.Model):
     practice_area = models.ForeignKey('PracticeArea', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='assignment_photos/')
-    description = models.TextField(max_length=300)
+    description = models.TextField()
     company_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
 
     def __str__(self):
@@ -162,10 +162,10 @@ class Assignment(models.Model):
 
 
 class ServiceIntro(models.Model):
-    intro_text = models.TextField(max_length=150)
-    organization_development = models.TextField(max_length=100)
+    intro_text = models.TextField()
+    organization_development = models.TextField()
     organization_development_image = models.ImageField(upload_to='services/', blank=True, null=True)
-    research_evaluation = models.TextField(max_length=100)
+    research_evaluation = models.TextField()
     research_evaluation_image = models.ImageField(upload_to='services/', blank=True, null=True)
     sub_areas = models.ManyToManyField(SubServiceArea)
 
@@ -175,7 +175,7 @@ class ServiceIntro(models.Model):
 # Practice Areas Section
 class PracticeArea(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    introduction = models.TextField(max_length=200)
+    introduction = models.TextField()
     image = models.ImageField(upload_to='practice_areas/', blank=True, null=True)
     logo = models.ImageField(upload_to='practice_areas/', blank=True, null=True)
 
@@ -195,7 +195,7 @@ class TeamMember(models.Model):
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     name = models.CharField(max_length=255)
     designation = models.CharField(max_length=255, null=True, blank=True)
-    description = models.TextField(max_length=100)
+    description = models.TextField()
     photo = models.ImageField(upload_to='team_members/')
 
     class Meta:
@@ -215,7 +215,7 @@ class MilestoneWork(models.Model):
     practice_area = models.ForeignKey('PracticeArea', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='assignment_photos/')
-    description = models.TextField(max_length=300)
+    description = models.TextField()
     company_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
 
     def __str__(self):
@@ -235,7 +235,7 @@ class WorkLocation(models.Model):
     ]
     subcontinent = models.CharField(max_length=50, choices=SUBCONTINENT_CHOICES)
     country = models.CharField(max_length=100)
-    work_description = models.TextField(max_length=50)
+    work_description = models.TextField()
 
     class Meta:
         verbose_name_plural = '   Work Locations'
