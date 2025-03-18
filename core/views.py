@@ -54,7 +54,7 @@ class PracticeAreaViewSet(viewsets.ModelViewSet):
     serializer_class = PracticeAreaSerializer
 
 class TeamMemberViewSet(viewsets.ModelViewSet):
-    queryset = TeamMember.objects.all()
+    queryset = TeamMember.objects.all().order_by('priority')
     serializer_class = TeamMemberSerializer
 
 class MilestoneWorkViewSet(viewsets.ModelViewSet):
@@ -62,7 +62,7 @@ class MilestoneWorkViewSet(viewsets.ModelViewSet):
     serializer_class = MilestoneWorkSerializer
 
 class WorkLocationViewSet(viewsets.ModelViewSet):
-    queryset = MilestoneWork.objects.all()
+    queryset = WorkLocation.objects.all()
     serializer_class = WorkLocationSerializer
 
 class ReportViewSet(viewsets.ModelViewSet):
@@ -78,3 +78,7 @@ class BlogPostViewSet(viewsets.ModelViewSet):
 class RequestFormViewSet(viewsets.ModelViewSet):
     queryset = RequestForm.objects.all()
     serializer_class = RequestFormSerializer
+
+class PhotoGalleryViewSet(viewsets.ModelViewSet):
+    queryset = PhotoGallery.objects.all()
+    serializer_class = PhotoGallerySerializer

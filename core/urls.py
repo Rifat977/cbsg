@@ -61,6 +61,11 @@ urlpatterns = [
     path("blog-posts/<int:pk>/", BlogPostViewSet.as_view({'get': 'retrieve'}), name="blog-posts-detail"),
 
     path("request-forms/", RequestFormViewSet.as_view({'get': 'list', 'post': 'create'}), name="request-forms"),
-    path("request-forms/<int:pk>/", RequestFormViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name="request-forms-detail"),
+    path("request-forms/<int:pk>/", RequestFormViewSet.as_view({'get': 'retrieve'}), name="request-forms-detail"),
+
+    path("photo-gallery/", PhotoGalleryViewSet.as_view({'get': 'list'}), name="photo-gallery"),
+    path("photo-gallery/<int:pk>/", PhotoGalleryViewSet.as_view({'get': 'retrieve'}), name="photo-gallery-detail"),
+    
+
 
 ]

@@ -67,6 +67,7 @@ class About(models.Model):
     commitment_text = models.TextField()
     ethical_text = models.TextField()
     inclusivity_text = models.TextField()
+    core_value_text = models.TextField()
     core_competencies = models.ManyToManyField(CoreCompetency)
     company_profile = models.FileField(upload_to='company_profile_pdfs/')
     logo = models.ImageField(upload_to='logos/')
@@ -150,6 +151,7 @@ class Assignment(models.Model):
     sub_service_area = models.ForeignKey(SubServiceArea, on_delete=models.CASCADE)
     practice_area = models.ForeignKey('PracticeArea', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
+    select_client = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='assignment_photos/')
     description = models.TextField()
     company_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
@@ -197,6 +199,7 @@ class TeamMember(models.Model):
     designation = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField()
     photo = models.ImageField(upload_to='team_members/')
+    priority = models.IntegerField(default=0)
 
     class Meta:
         verbose_name_plural = '     Team Members'
@@ -251,6 +254,7 @@ class Report(models.Model):
 class BlogPost(models.Model):
     post_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='blog_photos/')
     content = models.TextField()
     category = models.CharField(max_length=100)
     publication_date = models.DateTimeField()
@@ -276,7 +280,10 @@ class PhotoGallery(models.Model):
     photo = models.ImageField(upload_to='photo_gallery/')
 
     class Meta:
-        verbose_name_plural = ' Photo Gallery'
+        verbose_name_plural = 'Photo Gallery'
+
+    def __str__(self):
+        return self.caption
 
 # Contact Section
 class ContactDetail(models.Model):

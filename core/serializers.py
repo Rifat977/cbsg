@@ -32,16 +32,18 @@ class AboutSerializer(serializers.ModelSerializer):
     class Meta:
         model = About
         fields = '__all__'
-
 class YearRangeSerializer(serializers.ModelSerializer):
     class Meta:
         model = YearRange
         fields = '__all__'
 
 class HistoryTimelineSerializer(serializers.ModelSerializer):
+    year_range = YearRangeSerializer(read_only=True)
+
     class Meta:
         model = HistoryTimeline
         fields = '__all__'
+
 
 class StrategicPartnerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -53,10 +55,7 @@ class SubServiceAreaSerializer(serializers.ModelSerializer):
         model = SubServiceArea
         fields = '__all__'
 
-class AssignmentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Assignment
-        fields = '__all__'
+
 
 class ServiceIntroSerializer(serializers.ModelSerializer):
     class Meta:
@@ -66,6 +65,14 @@ class ServiceIntroSerializer(serializers.ModelSerializer):
 class PracticeAreaSerializer(serializers.ModelSerializer):
     class Meta:
         model = PracticeArea
+        fields = '__all__'
+
+class AssignmentSerializer(serializers.ModelSerializer):
+    practice_area = PracticeAreaSerializer(read_only=True)
+    sub_service_area = SubServiceAreaSerializer(read_only=True)
+
+    class Meta:
+        model = Assignment
         fields = '__all__'
 
 class TeamMemberSerializer(serializers.ModelSerializer):
@@ -99,4 +106,9 @@ class BlogPostSerializer(serializers.ModelSerializer):
 class RequestFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = RequestForm
+        fields = '__all__'
+
+class PhotoGallerySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PhotoGallery  # Fixed typo here
         fields = '__all__'
