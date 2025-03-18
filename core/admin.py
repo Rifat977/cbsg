@@ -92,7 +92,7 @@ from django import forms
 class AssignmentForm(forms.ModelForm):
     class Meta:
         model = Assignment
-        fields = ['service_type', 'sub_service_area', 'practice_area', 'title', 'photo', 'description', 'company_logo']  # Include all fields
+        fields = ['service_type', 'sub_service_area', 'practice_area', 'title', 'select_client', 'photo', 'description', 'company_logo']  # Include all fields
 
 @admin.register(Assignment)
 class AssignmentAdmin(ModelAdmin):
