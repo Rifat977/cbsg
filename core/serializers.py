@@ -32,17 +32,17 @@ class AboutSerializer(serializers.ModelSerializer):
     class Meta:
         model = About
         fields = '__all__'
-class YearRangeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = YearRange
-        fields = '__all__'
-
 class HistoryTimelineSerializer(serializers.ModelSerializer):
-    year_range = YearRangeSerializer(read_only=True)
-
     class Meta:
         model = HistoryTimeline
-        fields = '__all__'
+        fields = ['id', 'title', 'description', 'image']
+
+class YearRangeSerializer(serializers.ModelSerializer):
+    timelines = HistoryTimelineSerializer(many=True, read_only=True)  # Use the related_name from FK
+
+    class Meta:
+        model = YearRange
+        fields = ['id', 'year_range', 'description', 'timelines']
 
 
 class StrategicPartnerSerializer(serializers.ModelSerializer):
