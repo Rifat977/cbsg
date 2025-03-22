@@ -17,6 +17,9 @@ CSRF_TRUSTED_ORIGINS = [
     "*"
 ]
 
+SESSION_COOKIE_SECURE = False  # Since you're using HTTP, not HTTPS
+CSRF_COOKIE_SECURE = False
+
 
 
 # Application definition
