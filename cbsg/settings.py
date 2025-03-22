@@ -15,7 +15,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 CSRF_TRUSTED_ORIGINS = [
     "http://cbsg-bd.org",
+    "https://cbsg-bd.org",
 ]
+
 
 
 SESSION_COOKIE_SECURE = False  # Since you're using HTTP, not HTTPS
