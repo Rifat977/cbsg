@@ -68,7 +68,6 @@ class About(models.Model):
     ethical_text = models.TextField()
     inclusivity_text = models.TextField()
     core_value_text = models.TextField()
-    core_competencies = models.ManyToManyField(CoreCompetency)
     company_profile = models.FileField(upload_to='company_profile_pdfs/')
     logo = models.ImageField(upload_to='logos/')
     company_name = models.CharField(max_length=50)

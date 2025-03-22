@@ -168,7 +168,7 @@ UNFOLD = {
     ],
     "BORDER_RADIUS": "6px",
     "SIDEBAR": {
-        "show_search": False,  # Search in applications and models names
+        "show_search": True,  # Search in applications and models names
         "show_all_applications": False,  # Dropdown with all applications and models
         "navigation": [
             {

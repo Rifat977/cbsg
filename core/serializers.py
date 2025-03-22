@@ -81,6 +81,9 @@ class TeamMemberSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class MilestoneWorkSerializer(serializers.ModelSerializer):
+    practice_area = PracticeAreaSerializer(read_only=True)
+    sub_service_area = SubServiceAreaSerializer(read_only=True)
+    
     class Meta:
         model = MilestoneWork
         fields = '__all__'
